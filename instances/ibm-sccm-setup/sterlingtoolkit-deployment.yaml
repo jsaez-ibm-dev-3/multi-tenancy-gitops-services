@@ -25,12 +25,7 @@ spec:
         - mountPath: /var/nfs-data/resources
           name: volume
           subPathExpr: user_inputs
-        - mountPath: /app/certs_secret_files
-          name: sccm-certs-secret
       volumes:
       - name: volume
         persistentVolumeClaim:
           claimName: ibm-sccm-input-pvc
-      - name: sccm-certs-secret
-        secret:
-          secretName: ibm-sccm-certs-secret
