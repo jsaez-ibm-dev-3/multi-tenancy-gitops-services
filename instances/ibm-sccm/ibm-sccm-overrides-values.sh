@@ -25,8 +25,8 @@ if [[ -z ${CC_ADMIN_EMAIL_ADDRESS} ]]; then
   echo "Please provide environment variable CC_ADMIN_EMAIL_ADDRESS"
   exit 1
 fi
-if [[ -z ${KEYALIAS} ]]; then
-  echo "Please provide environment variable KEYALIAS"
+if [[ -z ${KEY_ALIAS} ]]; then
+  echo "Please provide environment variable KEY_ALIAS"
   exit 1
 fi
 
@@ -43,8 +43,6 @@ DBUSER=${DBUSER:-"db2inst1"}
 DBDRIVER=${DBDRIVER:-"/app/CC/user_inputs/db2jcc4.jar"}
 
 CLUSTER_DOMAIN=$(oc get dns cluster -o jsonpath='{ .spec.baseDomain }')
-
-#KEYALIAS=${KEYALIAS:-"self"}
 
 # Create Kubernetes yaml
 ( echo "cat <<EOF" ; cat ibm-sccm-overrides-values.yaml_template ;) | \
@@ -63,6 +61,6 @@ EMAIL_PORT=\"${EMAIL_PORT}\" \
 EMAIL_USER=\"${EMAIL_USER}\" \
 EMAIL_RESPOND=\"${EMAIL_RESPOND}\" \
 CC_ADMIN_EMAIL_ADDRESS=\"${CC_ADMIN_EMAIL_ADDRESS}\" \
-KEYALIAS=\"${KEYALIAS}\" \
+KEY_ALIAS=\"${KEY_ALIAS}\" \
 ADMIN_EMAIL_ADDRESS=\"${ADMIN_EMAIL_ADDRESS}\" \
 sh > values.yaml

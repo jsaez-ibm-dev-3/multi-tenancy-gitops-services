@@ -32,6 +32,10 @@ if [[ -z ${USER_KEY} ]]; then
   echo "Please provide environment variable USER_KEY"
   exit 1
 fi
+if [[ -z ${KEY_ALIAS} ]]; then
+  echo "Please provide environment variable KEY_ALIAS"
+  exit 1
+fi
 
 echo "Creating SCCM passwords as secrets"
 
@@ -42,6 +46,7 @@ KEYSTORE_PASSWORD=${KEYSTORE_PASSWORD}
 TRUSTSTORE_PASSWORD=${TRUSTSTORE_PASSWORD}
 EMAIL_PASSWORD=${EMAIL_PASSWORD}
 USER_KEY=${USER_KEY}
+KEY_ALIAS=${KEY_ALIAS}
 
 SEALED_SECRET_NAMESPACE=${SEALED_SECRET_NAMESPACE:-sealed-secrets}
 SEALED_SECRET_CONTOLLER_NAME=${SEALED_SECRET_CONTOLLER_NAME:-sealed-secrets}
@@ -68,11 +73,11 @@ rm delete-ibm-sccm-secret.yaml
 echo "Creating truststore.jks and keystore.jks certificates as secrets"
 DOMAIN=$(oc get ingresscontroller -n openshift-ingress-operator default -o jsonpath='{.status.domain}')
 
-keytool -genkey -keystore keystore.jks -storepass ${KEYSTORE_PASSWORD} -alias self -dname "CN=*.${DOMAIN}, ou=IBM Control Center, o=Director, L=Armonk, st=New York, c=US" -keypass ${KEYSTORE_PASSWORD} -sigalg SHA256withRSA -keyalg RSA
+keytool -genkey -keystore keystore.jks -storepass ${KEYSTORE_PASSWORD} -alias ${KEY_ALIAS} -dname "CN=*.${DOMAIN}, ou=IBM Control Center, o=Director, L=Armonk, st=New York, c=US" -keypass ${KEYSTORE_PASSWORD} -sigalg SHA256withRSA -keyalg RSA
 
-keytool -export -alias self -file selfsigned.cer -keystore keystore.jks
+keytool -export -alias ${KEY_ALIAS} -file selfsigned.cer -keystore keystore.jks
 
-keytool -import -v -trustcacerts -alias self -file selfsigned.cer -keystore truststore.jks -keypass ${TRUSTSTORE_PASSWORD} -storepass ${TRUSTSTORE_PASSWORD}
+keytool -import -v -trustcacerts -alias ${KEY_ALIAS} -file selfsigned.cer -keystore truststore.jks -keypass ${TRUSTSTORE_PASSWORD} -storepass ${TRUSTSTORE_PASSWORD}
 
 oc create secret generic ibm-sccm-jks-certs-secret --type=Opaque --from-file=keystore=keystore.jks --from-file=truststore=truststore.jks --dry-run=client -o yaml > delete-ibm-sccm-keystore-jks.yaml
 
