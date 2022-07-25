@@ -109,7 +109,7 @@ ibm-sccm:
     # Keystore and truststore configuration
     #keyStore: "/app/CC/user_inputs/keystore.jks"
     #trustStore: "/app/CC/user_inputs/truststore.jks"
-    keyAlias: ${KEYALIAS}
+    keyAlias: ${KEY_ALIAS}
     adminEmailAddress: ${ADMIN_EMAIL_ADDRESS}
 
     #Seas Parameters

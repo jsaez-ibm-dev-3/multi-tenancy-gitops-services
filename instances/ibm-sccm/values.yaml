@@ -68,7 +68,7 @@ ibm-sccm:
     dbUser: "db2inst1"
     dbName: "SCCDB"
     dbLoc: "none"
-    dbInit: "true"
+    dbInit: "false"
     dbPartition: "false"
     dbDrivers: "/app/CC/user_inputs/db2jcc4.jar"
     mssqlGlobal: "false"
@@ -109,7 +109,7 @@ ibm-sccm:
     # Keystore and truststore configuration
     #keyStore: "/app/CC/user_inputs/keystore.jks"
     #trustStore: "/app/CC/user_inputs/truststore.jks"
-    keyAlias: 
+    keyAlias: "self"
     adminEmailAddress: "no.reply@gmail.com"
 
     #Seas Parameters
