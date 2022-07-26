@@ -68,7 +68,7 @@ ibm-sccm:
     dbUser: "db2inst1"
     dbName: "SCCDB"
     dbLoc: "none"
-    dbInit: "false"
+    dbInit: "true"
     dbPartition: "false"
     dbDrivers: "/app/CC/user_inputs/db2jcc4.jar"
     mssqlGlobal: "false"
