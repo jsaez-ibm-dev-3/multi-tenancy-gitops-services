@@ -27,7 +27,7 @@ ibm-sccm:
     name: sccm
 
   service:
-    type: ClusterIP
+    type: LoadBalancer
     externalTrafficPolicy: ""
     sessionAffinity: "ClientIP"
     swingConsole:
@@ -68,7 +68,7 @@ ibm-sccm:
     dbUser: "db2inst1"
     dbName: "SCCDB"
     dbLoc: "none"
-    dbInit: "true"
+    dbInit: "false"
     dbPartition: "false"
     dbDrivers: "/app/CC/user_inputs/db2jcc4.jar"
     mssqlGlobal: "false"
